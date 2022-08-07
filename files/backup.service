@@ -1,0 +1,5 @@
+[Unit]
+Description=Runs my demo backup sh script
+
+[Service]
+ExecStart=/usr/bin/backup.sh #Location of the bash file you want to run

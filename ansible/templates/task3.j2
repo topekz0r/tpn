@@ -1,13 +1,13 @@
 map $remote_addr $block {
     default       on;
 
-    92.53.107.231 off;
+    92.53.107.231  off;
+    109.229.69.201 off;
 }
 
 server {
+  listen 443 ssl; # managed by Certbot
 
-  listen 80;
-  listen [::]:80;
   server_name topkekes.ddns.net;
 
   root /var/www/html/wordpress;
@@ -15,7 +15,6 @@ server {
   index index.php index.html index.htm index.nginx-debian.html;
 
 #  listen [::]:443 ssl ipv6only=on; # managed by Certbot
-  listen 443 ssl; # managed by Certbot
   ssl_certificate /etc/letsencrypt/live/topkekes.ddns.net/fullchain.pem; # managed by Certbot
   ssl_certificate_key /etc/letsencrypt/live/topkekes.ddns.net/privkey.pem; # managed by Certbot
 #    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
@@ -42,10 +41,10 @@ server {
     include snippets/fastcgi-php.conf;
     fastcgi_buffer_size 128k;
     fastcgi_buffers 4 128k;
-    fastcgi_intercept_errors on;  
+    fastcgi_intercept_errors on;
   }
 
- gzip on; 
+ gzip on;
  gzip_comp_level 6;
  gzip_min_length 1000;
  gzip_proxied any;
@@ -76,7 +75,7 @@ server {
       expires    90d;
       access_log off;
   }
-  
+
   # svg, fonts
   location ~* \.(?:svgz?|ttf|ttc|otf|eot|woff2?)$ {
       add_header Access-Control-Allow-Origin "*";
@@ -89,4 +88,12 @@ server {
       log_not_found off;
       deny all;
   }
+}
+
+server {
+    listen 80;
+
+    server_name topkekes.ddns.net;
+
+    return 301 https://$host$request_uri;
 }

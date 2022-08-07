@@ -1,0 +1,40 @@
+Commands: 
+
+- redis-cli -h 127.0.0.1 -p 6379 info replication
+# Replication
+role:master
+connected_slaves:1
+slave0:ip=127.0.0.1,port=6380,state=online,offset=106260,lag=0
+master_replid:43b4e096bc06a6abd416474fbe089f2f6a6a37b5
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:106260
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:106260
+
+- redis-cli -p 6380 info replication
+# Replication
+role:slave
+master_host:127.0.0.1
+master_port:6381
+master_link_status:up
+master_last_io_seconds_ago:4
+master_sync_in_progress:0
+slave_repl_offset:105966
+slave_priority:100
+slave_read_only:1
+connected_slaves:0
+master_replid:43b4e096bc06a6abd416474fbe089f2f6a6a37b5
+master_replid2:0000000000000000000000000000000000000000
+master_repl_offset:105966
+second_repl_offset:-1
+repl_backlog_active:1
+repl_backlog_size:1048576
+repl_backlog_first_byte_offset:1
+repl_backlog_histlen:105966
+
+
+- redis-cli -p 6380 GET key217321
+"D9I.a6d?VzB{TO[f"

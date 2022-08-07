@@ -1,0 +1,4 @@
+‘value’: ‘Hi test 12 edit slack TST2000 kljl TsT1230’.
+
+
+REGEX  =  ^Hi.*|TsT1230’.$|[^\W(‘value’: ‘)a-z]+

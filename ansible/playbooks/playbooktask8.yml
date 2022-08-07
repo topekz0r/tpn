@@ -1,0 +1,48 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: Creates directory
+    file:
+      path: "{{ item }}"
+      state: directory
+    with_items:
+    - /opt/prometheus_stack/prometheus
+    - /opt/prometheus_stack/grafana
+    - /opt/prometheus_stack/alertmanager
+    - /opt/prometheus_stack/blackbox
+
+  - name: template prometheus
+    template:
+      src: /home/tpn/git/ansible/templates/prometheus.j2
+      dest: /home/tpn/task8/prometheus.yml
+
+  - name: template docker
+    template:
+     src: /home/tpn/git/ansible/templates/docker_compose.j2
+     dest: /opt/prometheus_stack/docker-compose.yml
+
+  - name: copy timer settings
+    copy:
+      src: /home/tpn/git/files/backup.sh
+      dest: /home/tpn/task8/backup.sh
+
+  - name: copy timer settings
+    copy:
+      src: /home/tpn/git/files/backup.timer
+      dest: /home/tpn/task8/backup.timer
+
+  - name: copy timer settings
+    copy:
+      src: /home/tpn/git/files/backup.service
+      dest: /home/tpn/task8/backup.service
+
+  - name: timer startup
+    systemd:
+      name: backup.service
+      state: started
+
+  - name: run the service defined in my_project's docker-compose.yml
+    docker_compose:
+      project_src: /home/tpn/task8/
+      state: present

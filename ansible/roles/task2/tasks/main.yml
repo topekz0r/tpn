@@ -1,0 +1,6 @@
+---
+# tasks file for roles/task2
+- import_tasks: certbot.yml
+- import_tasks: mysql.yml
+- import_tasks: php1.yml
+- import_tasks: nginx.yml

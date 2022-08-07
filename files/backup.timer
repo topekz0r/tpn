@@ -1,0 +1,9 @@
+[Unit]
+Description=My backup job timer
+
+[Timer]
+OnCalendar=Mon..Sun 2022-*-*
+Unit=backup.service #Linking our timer with the service created above.
+
+[Install]
+WantedBy=multi-user.target

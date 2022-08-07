@@ -4,7 +4,6 @@ port            = 3315
 socket          = /var/run/mysqld/second_server.sock
 datadir         = /opt/second_server_data/
 mysqlx          = 0
-# server-id = 2
 log-bin = mysql-bin
 relay-log = relay-log-server
 relay-log = relay-log-server
